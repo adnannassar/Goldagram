@@ -1,0 +1,10 @@
+.gold-gradient {
+    background: linear-gradient(to right, #A67C00, #CEA65C, #FFF0BA);
+    color: black;
+}
+
+
+.gold-gradient:hover {
+    background: linear-gradient(to right, #A67C00, #CEA65C, #FFF0BA);
+    color: black;
+}
