@@ -1,10 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import {Container, TextField, Button, Select, MenuItem, InputLabel, FormControl, colors} from '@mui/material';
+import {Container, TextField, Button, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
 import {GoldItem} from "../Personal/Personal";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
 
 
 interface FormProps {
@@ -13,8 +12,8 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ onAddItem }) => {
     const navigate = useNavigate();
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = async (data: any) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<GoldItem>();
+    const onSubmit = async (data: GoldItem) => {
         try {
             const response = await axios.post('http://localhost:8080/gold/add', data);
             onAddItem(data);

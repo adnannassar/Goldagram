@@ -16,7 +16,7 @@ const GoldPriceContext = createContext<GoldPriceContextType | null>(null);
 export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }) => {
     const [goldPriceInfo, setGoldPriceInfo] = useState<GoldPriceInfo | null>(null);
     const useMockData = process.env.REACT_APP_USE_MOCK_DATA === 'true';
-    const apiKey = process.env.REACT_APP_GOLD_API_KEY;
+    const apiKey: string | undefined = process.env.REACT_APP_GOLD_API_KEY;
 
     useEffect(() => {
         const fetchGoldPrice = async () => {
@@ -24,14 +24,17 @@ export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }
                 setGoldPriceInfo(mockGoldPriceInfo);
                 return;
             }
-
+            if (!apiKey) {
+                console.error('API key is undefined');
+                return;
+            }
             try {
                 const response = await fetch('https://www.goldapi.io/api/XAU/EUR', {
-                    headers: { 'x-access-token': apiKey! }
+                    headers: { 'x-access-token': apiKey}
                 });
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    console.log('Network response was not ok');
                 }
 
                 const data = await response.json();
@@ -41,7 +44,9 @@ export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }
             }
         };
 
-        fetchGoldPrice();
+        fetchGoldPrice().then(r =>
+        console.log("Data fetched successful" , r)
+        );
     }, [apiKey, useMockData]);
 
     return (
