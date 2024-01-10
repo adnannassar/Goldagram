@@ -16,6 +16,7 @@ const GoldPriceContext = createContext<GoldPriceContextType | null>(null);
 export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }) => {
     const [goldPriceInfo, setGoldPriceInfo] = useState<GoldPriceInfo | null>(null);
     const useMockData = process.env.REACT_APP_USE_MOCK_DATA === 'true';
+    const apiKey = process.env.REACT_APP_GOLD_API_KEY;
 
     useEffect(() => {
         const fetchGoldPrice = async () => {
@@ -26,7 +27,7 @@ export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }
 
             try {
                 const response = await fetch('https://www.goldapi.io/api/XAU/EUR', {
-                    headers: { 'x-access-token': 'goldapi-dvbthrlr3mo2fa-io' }
+                    headers: { 'x-access-token': apiKey! }
                 });
 
                 if (!response.ok) {
@@ -41,7 +42,7 @@ export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }
         };
 
         fetchGoldPrice();
-    }, [useMockData]);
+    }, [apiKey, useMockData]);
 
     return (
         <GoldPriceContext.Provider value={{ goldPriceInfo, setGoldPriceInfo }}>
