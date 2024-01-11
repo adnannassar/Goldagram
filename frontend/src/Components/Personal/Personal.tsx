@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { useGoldPrice } from "../Contexts/GoldPriceContext";
-
 
 export interface GoldItem {
     id: number;
@@ -12,7 +11,6 @@ export interface GoldItem {
     company: string;
     photo: File; // or appropriate type for the photo
 }
-
 
 interface PersonalProps {
     goldItems: GoldItem[];
@@ -57,6 +55,7 @@ const Personal: React.FC<PersonalProps> = () => {
 
         return pricePerGram * weight;
     };
+
     useEffect(() => {
         const fetchGoldItems = async () => {
             try {
@@ -75,7 +74,6 @@ const Personal: React.FC<PersonalProps> = () => {
         fetchGoldItems();
     }, []);
 
-
     // Calculate sums
     let totalBuyPrice = 0;
     let totalCurrentPrice = 0;
@@ -86,9 +84,6 @@ const Personal: React.FC<PersonalProps> = () => {
         totalCurrentPrice += currentPrice;
         totalDifference += currentPrice - item.totalPrice;
     });
-
-
-
 
     return (
         <TableContainer component={Paper}>
@@ -119,15 +114,31 @@ const Personal: React.FC<PersonalProps> = () => {
                                 <TableCell>{currentPrice.toFixed(2)} €</TableCell>
                                 <TableCell>{item.company}</TableCell>
                                 <TableCell>{differenceFormatted} €</TableCell>
-
                             </TableRow>
                         );
                     })}
                 </TableBody>
             </Table>
-            <h1>Total price buy: {totalBuyPrice.toFixed(2)}</h1>
-            <h1>Total price sell: {totalCurrentPrice.toFixed(2)}</h1>
-            <h1>Total difference: {totalDifference.toFixed(2)}</h1>
+
+            {/* Total Price and Difference Table */}
+            <TableContainer component={Paper} style={{ marginTop: '20px' }}>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>Total price buy:</TableCell>
+                            <TableCell>{totalBuyPrice.toFixed(2)}€</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Total price sell:</TableCell>
+                            <TableCell>{totalCurrentPrice.toFixed(2)}€</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Total difference:</TableCell>
+                            <TableCell>{totalDifference.toFixed(2)}€</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </TableContainer>
     );
 };

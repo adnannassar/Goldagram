@@ -46,6 +46,7 @@ const Form: React.FC<FormProps> = ({ onAddItem }) => {
                     >
                         <MenuItem value={24}>24K</MenuItem>
                         <MenuItem value={22}>22K</MenuItem>
+                        <MenuItem value={22}>21K</MenuItem>
                         <MenuItem value={18}>18K</MenuItem>
                         <MenuItem value={14}>14K</MenuItem>
                         <MenuItem value={10}>10K</MenuItem>
