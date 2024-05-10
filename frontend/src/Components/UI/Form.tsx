@@ -81,10 +81,7 @@ const Form: React.FC<FormProps> = ({ onAddItem }) => {
                     error={!!errors.company}
                     helperText={errors.company ? "Company is required" : ""}
                 />
-                <input
-                    type="file"
-                    {...register('photo')}
-                />
+
                 <Button type="submit"  style = {{backgroundColor: 'black', color:'#f1d25c'}} variant="contained" className={'mt-4'} color="primary" fullWidth>
                     Add Gold
                 </Button>

@@ -9,7 +9,6 @@ export interface GoldItem {
     totalPrice: number;
     buyDate: string;
     company: string;
-    photo: File; // or appropriate type for the photo
 }
 
 interface PersonalProps {
@@ -90,7 +89,6 @@ const Personal: React.FC<PersonalProps> = () => {
             <Table aria-label="personal gold table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Photo</TableCell>
                         <TableCell>Weight (g)</TableCell>
                         <TableCell>Karat</TableCell>
                         <TableCell>Total Price (Buy Date)</TableCell>
@@ -107,7 +105,6 @@ const Personal: React.FC<PersonalProps> = () => {
                         const differenceFormatted = difference.toFixed(2);
                         return (
                             <TableRow key={item.weight} style={{ color: difference >= 0 ? 'gold' : 'red' }}>
-                                <TableCell><img alt="Gold" style={{ width: '50px', height: '50px' }} /></TableCell>
                                 <TableCell>{item.weight}</TableCell>
                                 <TableCell>{item.karat}</TableCell>
                                 <TableCell>{originalPrice.toFixed(2)} €</TableCell>

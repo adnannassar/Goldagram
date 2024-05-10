@@ -1,5 +1,5 @@
 import React, {createContext, useState, useEffect, ReactNode, useContext} from 'react';
-import { GoldPriceInfo } from '../Models/GoldPriceInfo';
+import {GoldPriceInfo} from '../Models/GoldPriceInfo';
 import {mockGoldPriceInfo} from '../MockData/MockGoldData';
 
 interface GoldPriceContextType {
@@ -13,9 +13,9 @@ interface GoldPriceProviderProps {
 
 const GoldPriceContext = createContext<GoldPriceContextType | null>(null);
 
-export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }) => {
+export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({children}) => {
     const [goldPriceInfo, setGoldPriceInfo] = useState<GoldPriceInfo | null>(null);
-    const useMockData = process.env.REACT_APP_USE_MOCK_DATA === 'true';
+    const useMockData = process.env.REACT_APP_USE_MOCK_DATA === 'false';
     const apiKey: string | undefined = process.env.REACT_APP_GOLD_API_KEY;
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }
             }
             try {
                 const response = await fetch('https://www.goldapi.io/api/XAU/EUR', {
-                    headers: { 'x-access-token': apiKey}
+                    headers: {'x-access-token': apiKey}
                 });
 
                 if (!response.ok) {
@@ -45,12 +45,12 @@ export const GoldPriceProvider: React.FC<GoldPriceProviderProps> = ({ children }
         };
 
         fetchGoldPrice().then(r =>
-        console.log("Data fetched successful" , r)
+            console.log("Data fetched successful", r)
         );
     }, [apiKey, useMockData]);
 
     return (
-        <GoldPriceContext.Provider value={{ goldPriceInfo, setGoldPriceInfo }}>
+        <GoldPriceContext.Provider value={{goldPriceInfo, setGoldPriceInfo}}>
             {children}
         </GoldPriceContext.Provider>
     );

@@ -8,6 +8,7 @@ import java.util.Date;
 public class Gold {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "gold_id")
     private Long id;
 
     private double weight;
@@ -15,19 +16,17 @@ public class Gold {
     private double totalPrice;
     private Date buyDate;
     private String company;
-    private String photoURL;
 
     public Gold() {
     }
 
-    public Gold(Long id, double weight, int karat, double totalPrice, Date buyDate, String company, String photoURL) {
+    public Gold(Long id, double weight, int karat, double totalPrice, Date buyDate, String company) {
         this.id = id;
         this.weight = weight;
         this.karat = karat;
         this.totalPrice = totalPrice;
         this.buyDate = buyDate;
         this.company = company;
-        this.photoURL = photoURL;
     }
 
     public Long getId() {
@@ -78,11 +77,4 @@ public class Gold {
         this.company = company;
     }
 
-    public String getPhotoURL() {
-        return photoURL;
-    }
-
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
-    }
 }
